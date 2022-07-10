@@ -1,18 +1,28 @@
 package com.roommatefinder.demo.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import java.util.List;
 
 
-
+@Entity
 public class RoommatePreferences {
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    
     Boolean drink;
     Boolean smoke;
     Boolean pets;
-    List<String> nationality;
+    String nationality;
     Integer ageMin;
     Integer ageMax;
     String preferredGender;
-    List<Integer> zipCode;
+    Integer zipCode;
     Integer budget;
     Integer furnished;
     Integer noOfPeople;
@@ -41,14 +51,7 @@ public class RoommatePreferences {
         this.pets = pets;
     }
 
-    public List<String> getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(List<String> nationality) {
-        this.nationality = nationality;
-    }
-
+  
     public Integer getAgeMin() {
         return ageMin;
     }
@@ -73,13 +76,6 @@ public class RoommatePreferences {
         this.preferredGender = preferredGender;
     }
 
-    public List<Integer> getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(List<Integer> zipCode) {
-        this.zipCode = zipCode;
-    }
 
     public Integer getBudget() {
         return budget;
