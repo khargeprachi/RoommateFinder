@@ -1,12 +1,44 @@
 package com.roommatefinder.demo.web;
 
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.roommatefinder.demo.model.Person;
+import com.roommatefinder.demo.model.PersonRepository;
+import com.roommatefinder.demo.service.FindRoommateService;
+
 
 public class FindRoommateController {
 
     
-    @RequestMapping
-    public void find() {
+    @Autowired
+    PersonRepository personRepo;
+    
+    @Autowired
+    FindRoommateService findRoommateService;
+    
+    @RequestMapping(value = "/match", method = RequestMethod.GET) 
+    public Map<Person, Person>  find() {
+       List<Person> people =  (List<Person>) personRepo.findAll();
+       
+     
+       Map<Person, Person> resultMap = findRoommateService.matchRoommates(people);
+        
+        return resultMap;
+        
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=SPA000000001")
+//                .contentLength(resource.contentLength())
+//                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+//                .body(resource);
         
     }
 }

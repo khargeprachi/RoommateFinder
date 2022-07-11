@@ -5,22 +5,68 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
 
 @Entity
 public class Person {
-    
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    String firstName;
+    String lastName;
+    String contact;
+    Integer age;
+    String gender; //enum
+
+    @Transient
+    Person marriedPerson;
+
+    @Transient
+    Integer marriedPersonMatchCount;
+
+    public Integer getMarriedPersonMatchCount() {
+        return marriedPersonMatchCount;
+    }
+
+    public void setMarriedPersonMatchCount(Integer marriedPersonMatchCount) {
+        this.marriedPersonMatchCount = marriedPersonMatchCount;
+    }
+
     
-String firstName;
-String lastName;
-String contact;
-Integer age;
-String gender; //enum
+    @OneToOne(targetEntity = RoommatePreferences.class)
+    RoommatePreferences roommatePreferences;
 
 
-//RoommatePreferences roommatePreferences;
+
+    //RoommatePreferences roommatePreferences;
+
+    public RoommatePreferences getRoommatePreferences() {
+        return roommatePreferences;
+    }
+
+    public void setRoommatePreferences(RoommatePreferences roommatePreferences) {
+        this.roommatePreferences = roommatePreferences;
+    }
+
+    public Person getMarriedPerson() {
+        return marriedPerson;
+    }
+
+    public void setMarriedPerson(Person marriedPerson) {
+        this.marriedPerson = marriedPerson;
+    }
 
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
@@ -66,5 +112,7 @@ String gender; //enum
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+
 
 }

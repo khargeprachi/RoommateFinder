@@ -11,6 +11,8 @@ import java.util.List;
 @Entity
 public class RoommatePreferences {
     
+
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
@@ -24,9 +26,31 @@ public class RoommatePreferences {
     String preferredGender;
     Integer zipCode;
     Integer budget;
-    Integer furnished;
+    Boolean furnished;
     Integer noOfPeople;
 
+    
+    public RoommatePreferences() {
+        super();
+    }
+
+    public RoommatePreferences(Boolean drink, Boolean smoke, Boolean pets, String nationality, Integer ageMin,
+            Integer ageMax, String preferredGender, Integer zipCode, Integer budget, Boolean furnished,
+            Integer noOfPeople) {
+        super();
+        this.drink = drink;
+        this.smoke = smoke;
+        this.pets = pets;
+        this.nationality = nationality;
+        this.ageMin = ageMin;
+        this.ageMax = ageMax;
+        this.preferredGender = preferredGender;
+        this.zipCode = zipCode;
+        this.budget = budget;
+        this.furnished = furnished;
+        this.noOfPeople = noOfPeople;
+    }
+    
     public Boolean getDrink() {
         return drink;
     }
@@ -85,11 +109,11 @@ public class RoommatePreferences {
         this.budget = budget;
     }
 
-    public Integer getFurnished() {
+    public Boolean getFurnished() {
         return furnished;
     }
 
-    public void setFurnished(Integer furnished) {
+    public void setFurnished(Boolean furnished) {
         this.furnished = furnished;
     }
 
