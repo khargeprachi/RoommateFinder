@@ -10,12 +10,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.roommatefinder.demo.model.Person;
 import com.roommatefinder.demo.model.PersonRepository;
 import com.roommatefinder.demo.service.FindRoommateService;
 
 
+@RestController
 public class FindRoommateController {
 
     

@@ -1,6 +1,7 @@
 package com.roommatefinder.demo.model;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,10 @@ import javax.persistence.Transient;
 
 @Entity
 public class Person {
+
+    public Person() {
+        super();
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -35,6 +40,11 @@ public class Person {
 
     @Transient
     Integer marriedPersonMatchCount;
+    
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public Integer getMarriedPersonMatchCount() {
         return marriedPersonMatchCount;
@@ -45,7 +55,7 @@ public class Person {
     }
 
     
-    @OneToOne(targetEntity = RoommatePreferences.class)
+    @OneToOne(targetEntity = RoommatePreferences.class, cascade=CascadeType.ALL)
     RoommatePreferences roommatePreferences;
 
 
@@ -68,10 +78,7 @@ public class Person {
         this.marriedPerson = marriedPerson;
     }
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+   
 
     public String getFirstName() {
         return firstName;

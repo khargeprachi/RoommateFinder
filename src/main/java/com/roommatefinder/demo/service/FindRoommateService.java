@@ -75,7 +75,7 @@ public class FindRoommateService {
     private boolean isPreferred(Person proposed, Person proposer, Person marriedPerson) {
        
         Integer proposerCount =  getPreferenecCount(proposer, proposed);      
-        if(proposerCount > marriedPerson.getMarriedPersonMatchCount()) {
+        if(proposerCount > proposed.getMarriedPersonMatchCount()) {
             return true;
         }
         return false;

@@ -3,8 +3,10 @@ package com.roommatefinder.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import com.roommatefinder.demo.model.Person;
@@ -12,17 +14,22 @@ import com.roommatefinder.demo.model.PersonRepository;
 import com.roommatefinder.demo.model.RoommatePreferences;
 
 @SpringBootApplication
-
+@EnableAutoConfiguration
+@ComponentScan(basePackages="com.roommatefinder.demo")
 @EnableJpaRepositories("com.roommatefinder.demo.model")
 public class DemoApplication {
 
     @Autowired
     PersonRepository personRepository;
     
+    
+    
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 		System.out.println("hello");
 				
+		
+		
 		
 		}
 	
@@ -46,11 +53,11 @@ public class DemoApplication {
             Person person5 = new Person("Kinnri", "Sinha");
             person5.setRoommatePreferences(new RoommatePreferences(false, false, false, "USA", 25, 30, "F", 85281, 1000, true, 2));
             
-	        repository.save(person1);
-	        repository.save(person2);
-	        repository.save(person3);
-	        repository.save(person4);
-	        repository.save(person5);
+//	        repository.save(person1);
+//	        repository.save(person2);
+//	        repository.save(person3);
+//	        repository.save(person4);
+//	        repository.save(person5);
 
 	    };
 	  }
