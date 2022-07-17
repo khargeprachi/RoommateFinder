@@ -28,11 +28,11 @@ public class FindRoommateController {
     FindRoommateService findRoommateService;
     
     @RequestMapping(value = "/match", method = RequestMethod.GET) 
-    public Map<Person, Person>  find() {
+    public Map<String, String>  find() throws IllegalArgumentException, IllegalAccessException {
        List<Person> people =  (List<Person>) personRepo.findAll();
        
      
-       Map<Person, Person> resultMap = findRoommateService.matchRoommates(people);
+       Map<String, String> resultMap = findRoommateService.matchRoommates(people);
         
         return resultMap;
         

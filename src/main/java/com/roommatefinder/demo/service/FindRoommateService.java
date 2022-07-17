@@ -9,16 +9,17 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.roommatefinder.demo.model.Person;
+import com.roommatefinder.demo.model.RoommatePreferences;
 
 @Service
 public class FindRoommateService {
 
     
     
-   public Map<Person, Person>  matchRoommates(List<Person> people) {
+   public Map<String, String>  matchRoommates(List<Person> people) throws IllegalArgumentException, IllegalAccessException {
        Boolean allProposed = false;
        
-       Map<Person, Person> resultMap= new HashMap<Person, Person>();
+       Map<String, String> resultMap= new HashMap<String, String>();
        
        while(!allProposed) {
           Person unmarriedPerson = people.stream().filter(person -> person.getMarriedPerson()==null).findFirst().orElse(null);
@@ -32,7 +33,7 @@ public class FindRoommateService {
            
        
        for(Person person : people) {
-           resultMap.put(person, person.getMarriedPerson());
+           resultMap.put(person.getFirstName(), person.getMarriedPerson().getFirstName());
        }
        return resultMap;
        
@@ -41,7 +42,7 @@ public class FindRoommateService {
    
    
    
-   private void findMatch(Person unmarriedPerson, List<Person> people) {
+   private void findMatch(Person unmarriedPerson, List<Person> people) throws IllegalArgumentException, IllegalAccessException {
 
        for(Person person : people) {
            checkPreferrence(person, unmarriedPerson);
@@ -52,18 +53,22 @@ public class FindRoommateService {
 
 
 
-   public void checkPreferrence(Person proposer, Person proposed) {
+   public void checkPreferrence(Person proposer, Person proposed) throws IllegalArgumentException, IllegalAccessException {
 
 
        if(!proposer.getId().equals(proposed.getId())) {
            if(proposed.getMarriedPerson()!=null) {
                if(isPreferred(proposed, proposer, proposed.getMarriedPerson())) {
+                   proposed.getMarriedPerson().setMarriedPerson(null);
                    proposed.setMarriedPerson(proposer);
+                   proposer.setMarriedPerson(proposed);
+                 
                }
            }else {
 
                proposed.setMarriedPersonMatchCount(getPreferenecCount(proposer, proposed));
                proposed.setMarriedPerson(proposer);
+               proposer.setMarriedPerson(proposed);
            }
 
 
@@ -72,7 +77,7 @@ public class FindRoommateService {
    }
 
 
-    private boolean isPreferred(Person proposed, Person proposer, Person marriedPerson) {
+    private boolean isPreferred(Person proposed, Person proposer, Person marriedPerson) throws IllegalArgumentException, IllegalAccessException {
        
         Integer proposerCount =  getPreferenecCount(proposer, proposed);      
         if(proposerCount > proposed.getMarriedPersonMatchCount()) {
@@ -81,19 +86,17 @@ public class FindRoommateService {
         return false;
     }
 
-    private Integer getPreferenecCount(Person proposer, Person proposed) {
-        Field[] preferenceList =   Person.class.getFields();
+    private Integer getPreferenecCount(Person proposer, Person proposed) throws IllegalArgumentException, IllegalAccessException {
+        Field[] preferenceList =   RoommatePreferences.class.getDeclaredFields();
         Integer count =0;
         for(Field field : preferenceList) {
             
             try {
-             if( proposer.getClass().getField(field.getName()).equals(proposed.getClass().getField(field.getName())) ) {
+                field.setAccessible(true);
+             if( !field.getName().equals("id") && field.get(proposer.getRoommatePreferences()).equals(field.get(proposed.getRoommatePreferences())) ) {
                  count++; 
                  }
           
-         } catch (NoSuchFieldException e) {
-             // TODO Auto-generated catch block
-             e.printStackTrace();
          } catch (SecurityException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
