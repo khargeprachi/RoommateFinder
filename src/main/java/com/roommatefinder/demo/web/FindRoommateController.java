@@ -8,6 +8,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,14 @@ public class FindRoommateController {
     
     @Autowired
     FindRoommateService findRoommateService;
+    
+    
+    
+    
+    @RequestMapping(value="/" , method=RequestMethod.GET )
+    public String homepage(Model model) {
+        return "home";
+    }
     
     @RequestMapping(value = "/match", method = RequestMethod.GET) 
     public Map<String, String>  find() throws IllegalArgumentException, IllegalAccessException {

@@ -27,6 +27,7 @@ public class FindRoommateService {
                 allProposed = true;
             }
             else {
+                
                 findMatch(unmarriedPerson, people);
             }
        }
@@ -44,8 +45,14 @@ public class FindRoommateService {
    
    private void findMatch(Person unmarriedPerson, List<Person> people) throws IllegalArgumentException, IllegalAccessException {
 
+       people.sort(new SortByPreference(unmarriedPerson));
+
+
        for(Person person : people) {
-           checkPreferrence(person, unmarriedPerson);
+           if(person.getId()!=unmarriedPerson.getId())  checkPreferrence(unmarriedPerson, person );
+           if(unmarriedPerson.getMarriedPerson()!=null) {
+               break;
+           }
        }
 
    }
@@ -55,8 +62,6 @@ public class FindRoommateService {
 
    public void checkPreferrence(Person proposer, Person proposed) throws IllegalArgumentException, IllegalAccessException {
 
-
-       if(!proposer.getId().equals(proposed.getId())) {
            if(proposed.getMarriedPerson()!=null) {
                if(isPreferred(proposed, proposer, proposed.getMarriedPerson())) {
                    proposed.getMarriedPerson().setMarriedPerson(null);
@@ -70,9 +75,6 @@ public class FindRoommateService {
                proposed.setMarriedPerson(proposer);
                proposer.setMarriedPerson(proposed);
            }
-
-
-       }
 
    }
 
@@ -98,7 +100,6 @@ public class FindRoommateService {
                  }
           
          } catch (SecurityException e) {
-             // TODO Auto-generated catch block
              e.printStackTrace();
          }
          }
