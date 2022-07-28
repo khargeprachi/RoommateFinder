@@ -29,6 +29,9 @@ public class FindRoommateService {
             else {
                 
                 findMatch(unmarriedPerson, people);
+                if(unmarriedPerson.getMarriedPerson()== null) {
+                    allProposed = true;
+                }
             }
        }
            

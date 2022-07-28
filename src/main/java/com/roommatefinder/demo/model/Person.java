@@ -29,6 +29,15 @@ public class Person {
         this.id = id;
     }
 
+    String emailId;
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
     String firstName;
     String lastName;
     String contact;

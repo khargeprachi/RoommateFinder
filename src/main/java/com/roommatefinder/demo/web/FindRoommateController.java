@@ -3,6 +3,8 @@ package com.roommatefinder.demo.web;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -10,8 +12,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.roommatefinder.demo.model.Person;
@@ -19,7 +24,7 @@ import com.roommatefinder.demo.model.PersonRepository;
 import com.roommatefinder.demo.service.FindRoommateService;
 
 
-@RestController
+@Controller
 public class FindRoommateController {
 
     
@@ -30,20 +35,22 @@ public class FindRoommateController {
     FindRoommateService findRoommateService;
     
     
-    
-    
     @RequestMapping(value="/" , method=RequestMethod.GET )
     public String homepage(Model model) {
         return "home";
     }
     
-    @RequestMapping(value = "/match", method = RequestMethod.GET) 
-    public Map<String, String>  find() throws IllegalArgumentException, IllegalAccessException {
+    @RequestMapping(value="/search" , method=RequestMethod.GET )
+    public String search(Model model) {
+        return "search";
+    }
+    
+    @RequestMapping(value = "/match", method = RequestMethod.POST) 
+    public Map<String, String>  find(Model model, @ModelAttribute Person person ) throws IllegalArgumentException, IllegalAccessException {
        List<Person> people =  (List<Person>) personRepo.findAll();
-       
-     
+    
        Map<String, String> resultMap = findRoommateService.matchRoommates(people);
-        
+   
         return resultMap;
         
 //        return ResponseEntity.ok()

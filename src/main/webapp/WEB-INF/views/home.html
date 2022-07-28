@@ -3,14 +3,17 @@
 </head>
 <body>
 <div layout:fragment="content">
-	<span th:if="${exhibition} == null">
+	
 	    <div class="jumbotron col-md-12">
 	        <h1>Welcome!</h1>
 	        <p>
 	        Find Roommates now!
 	        </p>
+	        <a th:href="@{/search}" class = "btn primary-btn" id="search"  > Search roommate now</a>
+	        
+	        
 	    </div>
-	</span>
+	
 </div>
 </body>
 </html>
