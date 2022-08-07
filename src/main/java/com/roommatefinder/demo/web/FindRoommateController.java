@@ -1,5 +1,6 @@
 package com.roommatefinder.demo.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,12 +44,19 @@ public class FindRoommateController {
     
     @RequestMapping(value="/search" , method=RequestMethod.GET )
     public String search(Model model) {
+        model.addAttribute("person", new Person());
         return "search";
     }
     
     @RequestMapping(value = "/match", method = RequestMethod.POST) 
-    public Map<String, String>  find(Model model, @ModelAttribute Person person ) throws IllegalArgumentException, IllegalAccessException {
-       List<Person> people =  (List<Person>) personRepo.findAll();
+    public Map<String, String>  find(@ModelAttribute Person person, BindingResult bindingResult,  Model model, HttpServletRequest request ) throws IllegalArgumentException, IllegalAccessException {
+        if(bindingResult.hasErrors()){
+            System.out.println("There was a error "+bindingResult);
+            System.out.println("Person is: "+ person.getEmailId());
+            return new HashMap();
+        }
+        
+        List<Person> people =  (List<Person>) personRepo.findAll();
     
        Map<String, String> resultMap = findRoommateService.matchRoommates(people);
    
