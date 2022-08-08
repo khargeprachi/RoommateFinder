@@ -43,11 +43,11 @@ public class SortByPreference implements Comparator<Person> {
             
             try {
                 field.setAccessible(true);
-             if( !field.getName().equals("id") && field.get(proposer.getRoommatePreferences()).equals(field.get(proposed.getRoommatePreferences())) ) {
-                 count++; 
-                 }
-          
-         } catch (SecurityException e) {
+                if( !field.getName().equals("id") && field.get(proposer.getRoommatePreferences()).equals(field.get(proposed.getRoommatePreferences())) ) {
+                    count++; 
+                }
+
+            } catch (SecurityException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
          }

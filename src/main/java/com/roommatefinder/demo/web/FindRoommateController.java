@@ -56,7 +56,16 @@ public class FindRoommateController {
             return new HashMap();
         }
         
-        List<Person> people =  (List<Person>) personRepo.findAll();
+       Person existPerson = personRepo.findByEmailId(person.getEmailId()) ;
+       if(existPerson == null) {
+           personRepo.save(person);
+          
+       } else {
+          existPerson.setRoommatePreferences(person.getRoommatePreferences());        
+          personRepo.save(existPerson);
+       }
+
+       List<Person> people =  (List<Person>) personRepo.findAll();
     
        Map<String, String> resultMap = findRoommateService.matchRoommates(people);
    

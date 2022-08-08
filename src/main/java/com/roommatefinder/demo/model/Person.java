@@ -7,11 +7,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
-@Entity
-public class Person {
+import org.springframework.context.annotation.Primary;
 
+@Entity
+@TableGenerator(
+        name="PERSON_TABLE_GENERATOR", 
+
+        pkColumnValue="emailId"
+    )
+public class Person {
+    
     public Person() {
         super();
     }
@@ -27,6 +35,7 @@ public class Person {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     String emailId;
     public String getEmailId() {
@@ -49,7 +58,9 @@ public class Person {
     @Transient
     Integer marriedPersonMatchCount;
     
-    public Person(String firstName, String lastName) {
+    public Person(String emailId, String firstName, String lastName) {
+        this.emailId= emailId;
+        
         this.firstName = firstName;
         this.lastName = lastName;
     }

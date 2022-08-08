@@ -68,9 +68,9 @@ console.log(formData);
                 <select th:field="${person.roommatePreferences.preferredGender}" id="preferredGender" name="preferredGender"
                                         class="form-control-xs target"
                                         style="height: 50px; width: 200px;">
-                                        <option selected value="Yes">Male</option>
-                                        <option selected value="No"> Female</option>
-                                         <option selected value="No"> Any gender</option>
+                                        <option selected value="Male">Male</option>
+                                        <option selected value="Female"> Female</option>
+                                         <option selected value="Any"> Any gender</option>
          
                                         
                  </select>
@@ -82,7 +82,7 @@ console.log(formData);
                                         style="height: 50px; width: 200px;">
                                         <option selected value="Yes">Yes</option>
                                         <option selected value="No">No</option>
-                                       <option selected value="No">Occasioanally</option>
+                                       <option selected value="Occasionally">Occasioanally</option>
                                         
                  </select>
                  </div>
@@ -93,7 +93,7 @@ console.log(formData);
                                         style="height: 50px; width: 200px;">
                                         <option selected value="Yes">Yes</option>
                                         <option selected value="No">No</option>
-                                       <option selected value="No">Occasioanally</option>
+                                       <option selected value="Occasionally">Occasioanally</option>
                                         
                  </select>
                  </div>
@@ -112,13 +112,39 @@ console.log(formData);
                   <label> What's your maximum budget? </label>
                   
                   <input type="budget"> </input>
- 
+             
+                 </div>
+                 
+                 <div>
+                       <label>Are you  looking for a furnished apartment?</label>
+                           <select  th:field="${person.roommatePreferences.furnished}" id="pets" name="pets"
+                                        class="form-control-xs target"
+                                        style="height: 50px; width: 200px;">
+                                        <option selected value="Yes">Yes</option>
+                                        <option selected value="No"> No</option>
+           
          
                                         
-               
-                 
+                 </select>
                  </div>
-                </div>
+                  <div>
+                       <label>Any Zip code?</label>
+                     <input type="number"> </input>
+                 </div>
+                  <div>
+                       <label>Any Nationality preference?</label>
+                   <select  th:field="${person.roommatePreferences.furnished}" id="pets" name="pets"
+                                        class="form-control-xs target"
+                                        style="height: 50px; width: 200px;">
+                                        <option selected value="US">US Citizen</option>
+                                        <option selected value="Asian"> Asian</option>
+                                        <option selected value="Hispanic"> Hispanic</option>
+                                        <option selected value="All"> No preference</option>
+           
+         
+                                        
+                 </select>
+                 </div>
             </div>
 	        </form>
 	        

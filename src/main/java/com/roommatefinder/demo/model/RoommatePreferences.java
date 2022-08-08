@@ -27,7 +27,7 @@ public class RoommatePreferences {
     Integer zipCode;
     Integer budget;
     Boolean furnished;
-    Integer noOfPeople;
+
 
     
     public RoommatePreferences() {
@@ -35,8 +35,7 @@ public class RoommatePreferences {
     }
 
     public RoommatePreferences(Boolean drink, Boolean smoke, Boolean pets, String nationality, Integer ageMin,
-            Integer ageMax, String preferredGender, Integer zipCode, Integer budget, Boolean furnished,
-            Integer noOfPeople) {
+            Integer ageMax, String preferredGender, Integer zipCode, Integer budget, Boolean furnished) {
         super();
         this.drink = drink;
         this.smoke = smoke;
@@ -48,7 +47,7 @@ public class RoommatePreferences {
         this.zipCode = zipCode;
         this.budget = budget;
         this.furnished = furnished;
-        this.noOfPeople = noOfPeople;
+
     }
     
     public Boolean getDrink() {
@@ -117,11 +116,5 @@ public class RoommatePreferences {
         this.furnished = furnished;
     }
 
-    public Integer getNoOfPeople() {
-        return noOfPeople;
-    }
 
-    public void setNoOfPeople(Integer noOfPeople) {
-        this.noOfPeople = noOfPeople;
-    }
 }
